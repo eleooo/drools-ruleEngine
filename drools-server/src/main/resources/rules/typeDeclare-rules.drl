@@ -1,0 +1,18 @@
+package com.jy.modules.drools.domain;
+import com.jy.modules.drools.entity.DroolsResultDTO;
+global DroolsResultDTO droolsResultDTO
+declare Person
+	name : String
+	age : int
+	weight : java.math.BigDecimal
+end
+
+rule "Age Filter"
+	when 
+		$p : Person(age >= 18)
+	then
+	    System.out.println($p.getName() +"已成年");
+	    droolsResultDTO.setRetStatus(true);
+        droolsResultDTO.setRemark($p.getName() +"已成年");
+        droolsResultDTO.setRuleScore(100f);
+end

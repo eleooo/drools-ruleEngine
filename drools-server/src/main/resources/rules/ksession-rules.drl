@@ -1,0 +1,28 @@
+package com.jy.modules.drools;
+import com.jy.modules.drools.domain.Message;
+import java.util.Map;
+import java.util.HashMap;
+import com.jy.modules.drools.entity.DroolsResultDTO;
+global DroolsResultDTO droolsResultDTO
+rule "Hello World"
+    dialect "mvel"
+    when
+        m : Message(status.equals(Message.HELLO), msg : msg )
+    then
+      System.out.println( msg);
+    modify ( m ) { msg = "Goodbye cruel world",status = Message.GOODBYE };
+       droolsResultDTO.setRetStatus(true);
+       droolsResultDTO.setRemark(msg);
+       droolsResultDTO.setRuleScore(25f);
+end
+
+rule "Good Bye"
+    dialect "java"
+    when
+       Message( status == Message.GOODBYE, msg : msg )
+    then
+       System.out.println(msg);
+       droolsResultDTO.setRetStatus(true);
+       droolsResultDTO.setRemark(msg);
+       droolsResultDTO.setRuleScore(20f);
+end

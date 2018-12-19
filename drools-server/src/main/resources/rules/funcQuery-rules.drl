@@ -1,0 +1,7 @@
+package com.jy.modules.drools.domain;
+
+import com.jy.modules.drools.domain.Person;
+
+query "Age between" (int minAge, int maxAge)
+	p : Person(age > minAge, age < maxAge)
+end
