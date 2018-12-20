@@ -5,13 +5,11 @@ import com.jy.modules.drools.entity.DroolsResultDTO;
 import com.jy.modules.drools.service.DroolsService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,22 +25,22 @@ public class DroolsRest {
     public String exeRuleFile(@RequestParam(value = "msg") String msg,
                               @RequestParam(value = "status") Integer status) throws Exception {
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         Message message = new Message();
         message.setMsg(msg);
         message.setStatus(status);
         //存放每一个事实对象
         inputList.add(message);
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
-        DroolsResultDTO   droolsResultDTO = new DroolsResultDTO();
-        globalMap.put("droolsResultDTO",droolsResultDTO);
+        Map <String, Object> globalMap = new HashMap <String, Object>();
+        DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
+        globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
         String result = droolsService.executeRuleFile("ksession-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
-        if(StringUtils.isEmpty(result)){
+        if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
-            result =  droolsResultDTO.toString();
+            result = droolsResultDTO.toString();
             //result = new String(result.getBytes("GBK"), "utf-8");
 
         }
@@ -50,19 +48,19 @@ public class DroolsRest {
     }
 
     @RequestMapping("/declareNewType")
-    public String declareNewType() throws Exception{
+    public String declareNewType() throws Exception {
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
-        DroolsResultDTO   droolsResultDTO = new DroolsResultDTO();
-        globalMap.put("droolsResultDTO",droolsResultDTO);
+        Map <String, Object> globalMap = new HashMap <String, Object>();
+        DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
+        globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
         String result = droolsService.executeRuleFile("typeDeclare-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
-        if(StringUtils.isEmpty(result)){
+        if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
-            result =  droolsResultDTO.toString();
+            result = droolsResultDTO.toString();
         }
         return result;
     }
@@ -78,17 +76,17 @@ public class DroolsRest {
     @RequestMapping("/declareNewTypeExtends")
     public String declareNewTypeExtends() throws Exception {
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
-        DroolsResultDTO   droolsResultDTO = new DroolsResultDTO();
-        globalMap.put("droolsResultDTO",droolsResultDTO);
+        Map <String, Object> globalMap = new HashMap <String, Object>();
+        DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
+        globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
         String result = droolsService.executeRuleFile("typeDeclareExtends-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
-        if(StringUtils.isEmpty(result)){
+        if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
-            result =  droolsResultDTO.toString();
+            result = droolsResultDTO.toString();
         }
         return result;
     }
@@ -104,17 +102,17 @@ public class DroolsRest {
     @RequestMapping("/declareTypeMetadata")
     public String declareTypeMetadata() throws Exception {
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
-        DroolsResultDTO   droolsResultDTO = new DroolsResultDTO();
-        globalMap.put("droolsResultDTO",droolsResultDTO);
+        Map <String, Object> globalMap = new HashMap <String, Object>();
+        DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
+        globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
         String result = droolsService.executeRuleFile("typeMetadata-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
-        if(StringUtils.isEmpty(result)){
+        if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
-            result =  droolsResultDTO.toString();
+            result = droolsResultDTO.toString();
         }
         return result;
     }
@@ -131,20 +129,20 @@ public class DroolsRest {
     public String queryFuncRule() throws Exception {
         long startTime = System.currentTimeMillis();
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
-        DroolsResultDTO   droolsResultDTO = new DroolsResultDTO();
-        globalMap.put("droolsResultDTO",droolsResultDTO);
+        Map <String, Object> globalMap = new HashMap <String, Object>();
+        DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
+        globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
         String result = droolsService.executeRuleFile("funcQuery-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
-        if(StringUtils.isEmpty(result)){
+        if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
-            result =  droolsResultDTO.toString();
+            result = droolsResultDTO.toString();
         }
         long endTime = System.currentTimeMillis();
-        System.out.printf("执行耗时:"+(endTime-startTime));
+        System.out.printf("执行耗时:" + (endTime - startTime));
         return result;
     }
 
@@ -160,17 +158,17 @@ public class DroolsRest {
     @RequestMapping("/funcRule")
     public String funcRule() throws Exception {
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
-        DroolsResultDTO   droolsResultDTO = new DroolsResultDTO();
-        globalMap.put("droolsResultDTO",droolsResultDTO);
+        Map <String, Object> globalMap = new HashMap <String, Object>();
+        DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
+        globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
         String result = droolsService.executeRuleFile("function-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
-        if(StringUtils.isEmpty(result)){
+        if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
-            result =  droolsResultDTO.toString();
+            result = droolsResultDTO.toString();
         }
         return result;
     }
@@ -186,17 +184,17 @@ public class DroolsRest {
     @RequestMapping("/testGlobalProperty")
     public String testGlobalProperty() throws Exception {
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
-        Person p1 = new Person("P1",33,new BigDecimal(0));
-        Person p2 = new Person("P2",32,new BigDecimal(0));
-        Person p3 = new Person("P3",25,new BigDecimal(0));
+        List <Object> inputList = new ArrayList <Object>();
+        Person p1 = new Person("P1", 33, new BigDecimal(0));
+        Person p2 = new Person("P2", 32, new BigDecimal(0));
+        Person p3 = new Person("P3", 25, new BigDecimal(0));
         inputList.add(p1);
         inputList.add(p2);
         inputList.add(p3);
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
-        List<Person>  maxThan30List = new ArrayList<Person>();
-        globalMap.put("maxThan30",maxThan30List);
+        Map <String, Object> globalMap = new HashMap <String, Object>();
+        List <Person> maxThan30List = new ArrayList <Person>();
+        globalMap.put("maxThan30", maxThan30List);
         //执行规则文件
         String result = droolsService.executeRuleFile("globalProperty-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
@@ -215,7 +213,7 @@ public class DroolsRest {
     @RequestMapping("/testRuleProperty")
     public String testRuleProperty() throws Exception {
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         // 测试no-loop
         PropertyPerson p1 = new PropertyPerson("person 1", 17);
         // 测试lock-on-active和agenda-group
@@ -232,7 +230,7 @@ public class DroolsRest {
         inputList.add(p4);
         inputList.add(p5);
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
+        Map <String, Object> globalMap = new HashMap <String, Object>();
         //执行规则文件
         String result = droolsService.executeRuleFile("ruleProperty-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
@@ -252,7 +250,7 @@ public class DroolsRest {
     public String testLHSSyntax() throws Exception {
         long startTime = System.currentTimeMillis();
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         // 条件中调用事实方法
         SyntaxPerson1 p2 = new SyntaxPerson1("person 2", 30, "b");
         // Java表达式
@@ -278,12 +276,12 @@ public class DroolsRest {
         inputList.add(p8);
         inputList.add(p9);
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
+        Map <String, Object> globalMap = new HashMap <String, Object>();
         //执行规则文件
         String result = droolsService.executeRuleFile("ruleLHSSyntax-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         long endTime = System.currentTimeMillis();
-        System.out.printf("执行耗时:"+(endTime-startTime));
+        System.out.printf("执行耗时:" + (endTime - startTime));
         return result;
     }
 
@@ -299,7 +297,7 @@ public class DroolsRest {
     public String testRHSSyntax() throws Exception {
         long startTime = System.currentTimeMillis();
         //定义一个事实对象集合
-        List<Object> inputList = new ArrayList <Object>();
+        List <Object> inputList = new ArrayList <Object>();
         // 测试insert事实
         RHSPerson p1 = new RHSPerson("person 1", 11);
         // 测试update事实
@@ -307,18 +305,19 @@ public class DroolsRest {
         inputList.add(p1);
         inputList.add(p2);
         //定义全局变量，存放规则结果
-        Map<String,Object>  globalMap = new HashMap<String,Object>();
+        Map <String, Object> globalMap = new HashMap <String, Object>();
         //执行规则文件
         String result = droolsService.executeRuleFile("ruleRHSSyntax-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         long endTime = System.currentTimeMillis();
-        System.out.printf("执行耗时:"+(endTime-startTime));
+        System.out.printf("执行耗时:" + (endTime - startTime));
         return result;
     }
 
     @RequestMapping(value = "/index")
-    public ModelAndView index(Map<String, Object> data) {
+    public ModelAndView index(Map <String, Object> data) {
         data.put("name", "angus");
         return new ModelAndView("welcome");
     }
+
 }
