@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <drools.version>7.15.0.Final</drools.version>
+        <drools.version>7.7.0.Final</drools.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
         <lombok.version>1.18.0</lombok.version>
@@ -46,6 +46,11 @@
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-templates</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-rule</artifactId>
             <version>${drools.version}</version>
         </dependency>
 

@@ -77,7 +77,7 @@ public class DroolsService {
         if("typeDeclare-rules".equals(ruleFileName)){
             inputList = new ArrayList <Object>();
             //使用包名和类名获取事实对象类型
-            FactType fact = kbase.getFactType("com.jy.modules.drools.domain", "Person");
+            FactType fact = kbase.getFactType("org.drools.domain", "Person");
             Object obj = fact.newInstance();
             // 设置名称
             fact.set(obj, "name", "crazyit");
@@ -89,7 +89,7 @@ public class DroolsService {
         }else if("typeDeclareExtends-rules".equals(ruleFileName)){
             inputList = new ArrayList <Object>();
             //使用包名和类名获取事实对象类型
-            FactType fact = kbase.getFactType("com.jy.modules.drools.domain", "Programmer");
+            FactType fact = kbase.getFactType("org.drools.domain", "Programmer");
             Object obj = fact.newInstance();
             // 设置名称
             fact.set(obj, "name", "crazyit");
@@ -102,7 +102,7 @@ public class DroolsService {
         }else if("typeMetadata-rules".equals(ruleFileName)){
             inputList = new ArrayList <Object>();
             //使用包名和类名获取事实对象类型
-            FactType fact = kbase.getFactType("com.jy.modules.drools.domain", "Person");
+            FactType fact = kbase.getFactType("org.drools.domain", "Person");
             Object obj = fact.newInstance();
             // 设置名称
             fact.set(obj, "name", "crazyit");
