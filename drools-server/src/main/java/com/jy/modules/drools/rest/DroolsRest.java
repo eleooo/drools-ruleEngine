@@ -4,6 +4,11 @@ import com.jy.modules.drools.domain.*;
 import com.jy.modules.drools.entity.DroolsResultDTO;
 import com.jy.modules.drools.service.DroolsService;
 import org.apache.commons.lang3.StringUtils;
+import org.drools.examples.decisiontable.Driver;
+import org.drools.examples.decisiontable.Policy;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.StatelessKieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,10 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class DroolsRest {
@@ -312,6 +314,37 @@ public class DroolsRest {
         long endTime = System.currentTimeMillis();
         System.out.printf("执行耗时:" + (endTime - startTime));
         return result;
+    }
+
+
+    /**
+     * @methodName: testDecisiontable
+     * @param: []
+     * @describe: 测试决策表(电子表格)
+     * @auther: dongdongchen
+     * @date: 2018/12/14
+     * @time: 14:39
+     **/
+    @RequestMapping("/testDecisiontable")
+    public void testDecisiontable() throws Exception {
+        long startTime = System.currentTimeMillis();
+        KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
+        System.out.println(kc.verify().getMessages().toString());
+        StatelessKieSession ksession = kc.newStatelessKieSession( "DecisionTableKS");
+        Driver driver = new Driver();
+        driver.setName("Mr Joe Blogs");
+        driver.setAge(30);
+        driver.setPriorClaims(0);
+        driver.setLocationRiskProfile("LOW");
+        Policy policy = new Policy();
+        policy.setApproved(false);
+        policy.setType("COMPREHENSIVE");
+        policy.setDiscountPercent(0);
+        ksession.execute(Arrays.asList( new Object[]{driver, policy} ) );
+        System.out.println( "BASE PRICE IS: " + policy.getBasePrice() );
+        System.out.println( "DISCOUNT IS: " + policy.getDiscountPercent() );
+        long endTime = System.currentTimeMillis();
+        System.out.printf("执行耗时:" + (endTime - startTime));
     }
 
     @RequestMapping(value = "/index")
