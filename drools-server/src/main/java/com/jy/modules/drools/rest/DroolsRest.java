@@ -3,10 +3,14 @@ package com.jy.modules.drools.rest;
 import com.jy.modules.drools.domain.*;
 import com.jy.modules.drools.entity.DroolsResultDTO;
 import com.jy.modules.drools.service.DroolsService;
+import com.jy.modules.drools.service.DroolsService2;
 import org.apache.commons.lang3.StringUtils;
 import org.drools.examples.decisiontable.Driver;
 import org.drools.examples.decisiontable.Policy;
+import org.drools.examples.helloworld.Message;
 import org.kie.api.KieServices;
+import org.kie.api.event.rule.DebugAgendaEventListener;
+import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.StatelessKieSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,31 +27,10 @@ public class DroolsRest {
     @Autowired
     private DroolsService droolsService;
 
-    @RequestMapping("/exeRuleFile")
-    public String exeRuleFile(@RequestParam(value = "msg") String msg,
-                              @RequestParam(value = "status") Integer status) throws Exception {
-        //定义一个事实对象集合
-        List <Object> inputList = new ArrayList <Object>();
-        Message message = new Message();
-        message.setMsg(msg);
-        message.setStatus(status);
-        //存放每一个事实对象
-        inputList.add(message);
-        //定义全局变量，存放规则结果
-        Map <String, Object> globalMap = new HashMap <String, Object>();
-        DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
-        globalMap.put("droolsResultDTO", droolsResultDTO);
-        //执行规则文件
-        String result = droolsService.executeRuleFile("ksession-rules", inputList, globalMap);
-        //若result值不为空值，说明规则执行存在错误。
-        if (StringUtils.isEmpty(result)) {
-            //返回规则处理结果
-            result = droolsResultDTO.toString();
-            //result = new String(result.getBytes("GBK"), "utf-8");
+    @Autowired
+    private DroolsService2 droolsService2;
 
-        }
-        return result;
-    }
+
 
     @RequestMapping("/declareNewType")
     public String declareNewType() throws Exception {
@@ -58,7 +41,7 @@ public class DroolsRest {
         DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
         globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
-        String result = droolsService.executeRuleFile("typeDeclare-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("typeDeclare-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
@@ -84,7 +67,7 @@ public class DroolsRest {
         DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
         globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
-        String result = droolsService.executeRuleFile("typeDeclareExtends-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("typeDeclareExtends-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
@@ -110,7 +93,7 @@ public class DroolsRest {
         DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
         globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
-        String result = droolsService.executeRuleFile("typeMetadata-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("typeMetadata-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
@@ -137,7 +120,7 @@ public class DroolsRest {
         DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
         globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
-        String result = droolsService.executeRuleFile("funcQuery-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("funcQuery-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
@@ -166,7 +149,7 @@ public class DroolsRest {
         DroolsResultDTO droolsResultDTO = new DroolsResultDTO();
         globalMap.put("droolsResultDTO", droolsResultDTO);
         //执行规则文件
-        String result = droolsService.executeRuleFile("function-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("function-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         if (StringUtils.isEmpty(result)) {
             //返回规则处理结果
@@ -198,7 +181,7 @@ public class DroolsRest {
         List <Person> maxThan30List = new ArrayList <Person>();
         globalMap.put("maxThan30", maxThan30List);
         //执行规则文件
-        String result = droolsService.executeRuleFile("globalProperty-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("globalProperty-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         return result;
     }
@@ -234,7 +217,7 @@ public class DroolsRest {
         //定义全局变量，存放规则结果
         Map <String, Object> globalMap = new HashMap <String, Object>();
         //执行规则文件
-        String result = droolsService.executeRuleFile("ruleProperty-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("ruleProperty-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         return result;
     }
@@ -280,7 +263,7 @@ public class DroolsRest {
         //定义全局变量，存放规则结果
         Map <String, Object> globalMap = new HashMap <String, Object>();
         //执行规则文件
-        String result = droolsService.executeRuleFile("ruleLHSSyntax-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("ruleLHSSyntax-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         long endTime = System.currentTimeMillis();
         System.out.printf("执行耗时:" + (endTime - startTime));
@@ -309,7 +292,7 @@ public class DroolsRest {
         //定义全局变量，存放规则结果
         Map <String, Object> globalMap = new HashMap <String, Object>();
         //执行规则文件
-        String result = droolsService.executeRuleFile("ruleRHSSyntax-rules", inputList, globalMap);
+        String result = droolsService2.executeRuleFile("ruleRHSSyntax-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         long endTime = System.currentTimeMillis();
         System.out.printf("执行耗时:" + (endTime - startTime));
@@ -326,26 +309,52 @@ public class DroolsRest {
      * @time: 14:39
      **/
     @RequestMapping("/testDecisiontable")
-    public void testDecisiontable() throws Exception {
+    public void testDecisiontable(@RequestParam(value = "name") String name,
+                                  @RequestParam(value = "age") Integer age,
+                                  @RequestParam(value = "priorClaims") Integer priorClaims,
+                                  @RequestParam(value = "locationRiskProfile") String locationRiskProfile,
+                                  @RequestParam(value = "type") String type
+                                  )
+            throws Exception {
         long startTime = System.currentTimeMillis();
-        KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
-        System.out.println(kc.verify().getMessages().toString());
-        StatelessKieSession ksession = kc.newStatelessKieSession( "DecisionTableKS");
         Driver driver = new Driver();
-        driver.setName("Mr Joe Blogs");
-        driver.setAge(30);
-        driver.setPriorClaims(0);
-        driver.setLocationRiskProfile("LOW");
+        driver.setName(name);
+        driver.setAge(age);
+        driver.setPriorClaims(priorClaims);
+        driver.setLocationRiskProfile(locationRiskProfile);
         Policy policy = new Policy();
         policy.setApproved(false);
-        policy.setType("COMPREHENSIVE");
+        policy.setType(type);
         policy.setDiscountPercent(0);
-        ksession.execute(Arrays.asList( new Object[]{driver, policy} ) );
+        droolsService.executeStatelessKSRule("DecisionTableKS",new Object[]{driver,policy});
         System.out.println( "BASE PRICE IS: " + policy.getBasePrice() );
         System.out.println( "DISCOUNT IS: " + policy.getDiscountPercent() );
         long endTime = System.currentTimeMillis();
         System.out.printf("执行耗时:" + (endTime - startTime));
     }
+
+
+    /**
+     * @methodName: testHelloWorld
+     * @param: [msg, status]
+     * @describe: 测试简单规则
+     * @auther: dongdongchen
+     * @date: 2018/12/26
+     * @time: 14:10
+     **/
+    @RequestMapping("/testHelloWorld")
+    public void testHelloWorld(@RequestParam(value = "msg") String msg,
+                              @RequestParam(value = "status") Integer status) throws Exception {
+        long startTime = System.currentTimeMillis();
+        Message message = new Message();
+        message.setMessage(msg);
+        message.setStatus(status);
+        droolsService.executeStatelessKSRule("HelloWorldKS",new Object[]{message});
+        long endTime = System.currentTimeMillis();
+        System.out.println("执行耗时:" + (endTime - startTime));
+    }
+
+
 
     @RequestMapping(value = "/index")
     public ModelAndView index(Map <String, Object> data) {
