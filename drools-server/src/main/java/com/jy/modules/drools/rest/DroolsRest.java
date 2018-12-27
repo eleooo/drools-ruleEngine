@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.drools.examples.decisiontable.Driver;
 import org.drools.examples.decisiontable.Policy;
 import org.drools.examples.helloworld.Message;
+import org.drools.examples.state.State;
 import org.kie.api.KieServices;
 import org.kie.api.event.rule.DebugAgendaEventListener;
 import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
@@ -317,6 +318,8 @@ public class DroolsRest {
                                   )
             throws Exception {
         long startTime = System.currentTimeMillis();
+        //定义一个事实对象集合
+        List<Object> factObjList = new ArrayList <Object>();
         Driver driver = new Driver();
         driver.setName(name);
         driver.setAge(age);
@@ -326,7 +329,9 @@ public class DroolsRest {
         policy.setApproved(false);
         policy.setType(type);
         policy.setDiscountPercent(0);
-        droolsService.executeStatelessKSRule("DecisionTableKS",new Object[]{driver,policy});
+        factObjList.add(driver);
+        factObjList.add(policy);
+        droolsService.executeStatelessKSRule("DecisionTableKS",factObjList);
         System.out.println( "BASE PRICE IS: " + policy.getBasePrice() );
         System.out.println( "DISCOUNT IS: " + policy.getDiscountPercent() );
         long endTime = System.currentTimeMillis();
@@ -346,14 +351,44 @@ public class DroolsRest {
     public void testHelloWorld(@RequestParam(value = "msg") String msg,
                               @RequestParam(value = "status") Integer status) throws Exception {
         long startTime = System.currentTimeMillis();
+        //定义一个事实对象集合
+        List<Object> factObjList = new ArrayList <Object>();
         Message message = new Message();
         message.setMessage(msg);
         message.setStatus(status);
-        droolsService.executeStatelessKSRule("HelloWorldKS",new Object[]{message});
+        factObjList.add(message);
+        droolsService.executeStatefulKSRule("HelloWorldKS",factObjList);
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
     }
 
+
+    /**
+     * @methodName: testStateSalienceKB
+     * @param: [msg, status]
+     * @describe:测试有状态会话的状态规则
+     * 使用PropertyChangeSupport来监听变量的变化
+     * @auther: dongdongchen
+     * @date: 2018/12/26
+     * @time: 20:08
+     **/
+    @RequestMapping("/testStateSalienceKB")
+    public void testStateSalienceKB() throws Exception {
+        long startTime = System.currentTimeMillis();
+        //定义一个事实对象集合
+        List<Object> factObjList = new ArrayList <Object>();
+        final State a = new State( "A" );
+        final State b = new State( "B" );
+        final State c = new State( "C" );
+        final State d = new State( "D" );
+        factObjList.add(a);
+        factObjList.add(b);
+        factObjList.add(c);
+        factObjList.add(d);
+        droolsService.executeStatelessKSRule("StateSalienceKB",factObjList);
+        long endTime = System.currentTimeMillis();
+        System.out.println("执行耗时:" + (endTime - startTime));
+    }
 
 
     @RequestMapping(value = "/index")
