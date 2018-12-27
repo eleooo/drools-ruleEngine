@@ -366,13 +366,13 @@ public class DroolsRest {
     /**
      * @methodName: testStateSalienceKB
      * @param: [msg, status]
-     * @describe:测试有状态会话的状态规则
+     * @describe:测试含有salience优先级的规则方法
      * 使用PropertyChangeSupport来监听变量的变化
      * @auther: dongdongchen
      * @date: 2018/12/26
      * @time: 20:08
      **/
-    @RequestMapping("/testStateSalienceKB")
+    @RequestMapping("/testStateSalienceKS")
     public void testStateSalienceKB() throws Exception {
         long startTime = System.currentTimeMillis();
         //定义一个事实对象集合
@@ -385,7 +385,36 @@ public class DroolsRest {
         factObjList.add(b);
         factObjList.add(c);
         factObjList.add(d);
-        droolsService.executeStatelessKSRule("StateSalienceKB",factObjList);
+        droolsService.executeStatelessKSRule("StateSalienceKS",factObjList);
+        long endTime = System.currentTimeMillis();
+        System.out.println("执行耗时:" + (endTime - startTime));
+    }
+
+    /**
+     * @methodName: testStateAgendaGroupKS
+     * @param: []
+     * @describe: 测试使用规则组
+     * agenda-group：为规则设定所属的规则组，当规则组获得焦点时，会匹配组内的规则，
+     *               如果规则组没有焦点，那么组内规则将不会触发，该属性默认为MAIN。
+     *               实际应用中agenda-group可以和auto-focus属性一起使用
+     * @auther: dongdongchen
+     * @date: 2018/12/27
+     * @time: 9:46
+     **/
+    @RequestMapping("/testStateAgendaGroupKS")
+    public void testStateAgendaGroupKS() throws Exception {
+        long startTime = System.currentTimeMillis();
+        //定义一个事实对象集合
+        List<Object> factObjList = new ArrayList <Object>();
+        final State a = new State( "A" );
+        final State b = new State( "B" );
+        final State c = new State( "C" );
+        final State d = new State( "D" );
+        factObjList.add(a);
+        factObjList.add(b);
+        factObjList.add(c);
+        factObjList.add(d);
+        droolsService.executeStatefulKSRule("StateAgendaGroupKS",factObjList);
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
     }
