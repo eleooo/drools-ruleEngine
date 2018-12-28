@@ -1,5 +1,6 @@
 package com.jy.modules.drools.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,4 +21,11 @@ public class FunctionUtil {
 		c.add(Calendar.DAY_OF_MONTH, amount);
 		return c.getTime();
 	}
+
+	public static Date date(String str) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		return sdf.parse( str );
+	}
+
 }

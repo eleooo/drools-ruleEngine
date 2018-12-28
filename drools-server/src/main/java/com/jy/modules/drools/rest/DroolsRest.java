@@ -4,10 +4,19 @@ import com.jy.modules.drools.domain.*;
 import com.jy.modules.drools.entity.DroolsResultDTO;
 import com.jy.modules.drools.service.DroolsService;
 import com.jy.modules.drools.service.DroolsService2;
+import com.jy.modules.drools.util.FunctionUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.drools.examples.cashflow.Account;
+import org.drools.examples.cashflow.AccountPeriod;
+import org.drools.examples.cashflow.CashFlow;
+import org.drools.examples.cashflow.CashFlowType;
 import org.drools.examples.decisiontable.Driver;
 import org.drools.examples.decisiontable.Policy;
 import org.drools.examples.helloworld.Message;
+import org.drools.examples.honestpolitician.Politician;
+import org.drools.examples.petstore.Order;
+import org.drools.examples.petstore.Product;
+import org.drools.examples.petstore.Purchase;
 import org.drools.examples.state.State;
 import org.kie.api.KieServices;
 import org.kie.api.event.rule.DebugAgendaEventListener;
@@ -419,11 +428,111 @@ public class DroolsRest {
         System.out.println("执行耗时:" + (endTime - startTime));
     }
 
-
-    @RequestMapping(value = "/index")
-    public ModelAndView index(Map <String, Object> data) {
-        data.put("name", "angus");
-        return new ModelAndView("welcome");
+    /**
+     * @methodName: testHonestPoliticianKS
+     * @param: []
+     * @describe: 在示例中规定，只要存在诚实的政治家，一个整体才有希望。
+     *       exists Hope()表示只在乎是否存在而不在乎存在几个，即使存在多个RHS只生效一次。对Hope()，存在几个RHS就会执行几次；
+     *       insertLogical当没有更多的fact支持当前激发规则的真值状态时，对象自动删除
+     * @auther: dongdongchen
+     * @date: 2018/12/27
+     * @time: 14:18
+     **/
+    @RequestMapping("/testHonestPoliticianKS")
+    public void testHonestPoliticianKS(){
+        long startTime = System.currentTimeMillis();
+        //定义一个事实对象集合
+        List<Object> factObjList = new ArrayList <Object>();
+        final Politician p1 = new Politician( "President of Umpa Lumpa", true );
+        final Politician p2 = new Politician( "Prime Minster of Cheeseland", true );
+        final Politician p3 = new Politician( "Tsar of Pringapopaloo", true );
+        final Politician p4 = new Politician( "Omnipotence Om", true );
+        factObjList.add(p1);
+        factObjList.add(p2);
+        factObjList.add(p3);
+        factObjList.add(p4);
+        droolsService.executeStatelessKSRule("HonestPoliticianKS",factObjList);
+        long endTime = System.currentTimeMillis();
+        System.out.println("执行耗时:" + (endTime - startTime));
     }
 
+
+    /**
+     * @methodName: testCashFlowKS
+     * @param: []
+     * @describe: 测试现金流转
+     * @auther: dongdongchen
+     * @date: 2018/12/27
+     * @time: 15:52
+     **/
+    @RequestMapping("/testCashFlowKS")
+    public void testCashFlowKS() throws Exception {
+        long startTime = System.currentTimeMillis();
+        //定义一个事实对象集合
+        List<Object> factObjList = new ArrayList <Object>();
+        AccountPeriod acp = new AccountPeriod(FunctionUtil.date( "2013-01-01"),FunctionUtil.date( "2013-03-31"));
+        Account ac = new Account(1, 0);
+        CashFlow cf1 = new CashFlow(FunctionUtil.date( "2013-01-12"), 100, CashFlowType.CREDIT, 1 );
+        CashFlow cf2 = new CashFlow(FunctionUtil.date( "2013-02-2"), 200, CashFlowType.DEBIT, 1 );
+        CashFlow cf3 = new CashFlow(FunctionUtil.date( "2013-05-18"), 50, CashFlowType.CREDIT, 1 );
+        CashFlow cf4 = new CashFlow(FunctionUtil.date( "2013-03-07"), 75, CashFlowType.CREDIT, 1 );
+        factObjList.add(ac);
+        factObjList.add(cf1);
+        factObjList.add(cf2);
+        factObjList.add(cf3);
+        factObjList.add(cf4);
+        droolsService.executeStatelessKSRule("CashFlowKS",factObjList);
+        long endTime = System.currentTimeMillis();
+        System.out.println("执行耗时:" + (endTime - startTime));
+    }
+
+    /**
+     * @methodName: testPetStore
+     * @param: []
+     * @describe: 测试宠物店规则
+     * @auther: dongdongchen
+     * @date: 2018/12/27
+     * @time: 15:52
+     **/
+    @RequestMapping("/testPetStore")
+    public void testPetStore(){
+        long startTime = System.currentTimeMillis();
+        //定义一个事实对象集合
+        List<Object> factObjList = new ArrayList <Object>();
+        Order order = new Order();
+        //定义商品列表
+        Product goldFish = new Product("Gold Fish", 5);
+        Product fishTank = new Product("Fish Tank", 25 );
+        Product fishFood = new Product( "Fish Food", 2 );
+        //将商品存储到购物车中
+        List<Product> items = new ArrayList <Product>();
+        //Purchase  purchase06 = new Purchase(order,fishTank);
+        items.add(new Product("Gold Fish", 5));
+        items.add(new Product("Gold Fish", 5));
+        items.add(new Product("Gold Fish", 5));
+        items.add(new Product("Gold Fish", 5));
+        items.add(new Product("Gold Fish", 5));
+        items.add(new Product("Gold Fish", 5));
+        for ( Product p: items ) {
+            order.addItem( new Purchase( order,p) );
+        }
+        //存放商品信息
+        factObjList.add(goldFish);
+        factObjList.add(fishTank);
+        factObjList.add(fishFood);
+        //存放订单信息
+        factObjList.add(order);
+        //定义全局变量
+        Map<String,Object> globalVariable = new HashMap<String,Object>();
+        Map<String,Object> globalMap = new HashMap<String,Object>();
+        globalVariable.put("globalMap",globalMap);
+        droolsService.executeStatelessKSRule("PetStoreKS",factObjList,globalVariable);
+        if(null!=globalMap && globalMap.size()>0){
+            double discountedTotal = (double)globalMap.get("discountedTotal");
+            double grossTotal = (double)globalMap.get("grossTotal");
+            System.out.println("订单总价格:" + grossTotal+",订单折后价格:"+discountedTotal);
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("执行耗时:" + (endTime - startTime));
+    }
 }

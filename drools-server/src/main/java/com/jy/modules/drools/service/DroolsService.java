@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static com.sun.org.apache.xerces.internal.util.FeatureState.is;
 
@@ -80,5 +81,34 @@ public class DroolsService {
             //关闭当前session的资源
             ksession.dispose();
         }
+    }
+
+    /**
+     * @methodName: executeStatelessKSRule
+     * @param: [kSessionName, factObjList, globalVariable]
+     * @describe: 执行有状态session规则(支持设置多个全局变量)
+     * @auther: dongdongchen
+     * @date: 2018/12/28
+     * @time: 18:22
+     **/
+    public void executeStatelessKSRule(String kSessionName, List<Object> factObjList, Map<String,Object> globalVariable) {
+        //使用kieservice创建新的KieContainers,
+        //KieContainer对所有的业务资产(规则、流程、电子表格、PMML文档等)都有引用，当我们创建新的规则引擎实例时，这些资产将被加载
+        KieContainer kContainer = KieServices.Factory.get().getKieClasspathContainer();
+        //verify()方法将允许我们确保我们的业务资产是正确的
+        Results results = kContainer.verify();
+        results.getMessages().stream().forEach((message) -> {
+            logger.info(">> Message ( " + message.getLevel() + " ): " + message.getText());
+        });
+        //与KIESession相反，StatelessKIESession隔离了每次与规则引擎的交互，不会维护会话的状态。
+        StatelessKieSession ksession = kContainer.newStatelessKieSession(kSessionName);
+        //遍历每一个全局变量，并加入KieSession中
+        Iterator <Map.Entry <String, Object>> it = globalVariable.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry <String, Object> entry = (Map.Entry <String, Object>) it.next();
+            ksession.setGlobal((String) entry.getKey(), entry.getValue());
+        }
+        //设置事实对象集合，并执行相应规则
+        ksession.execute(factObjList);
     }
 }
