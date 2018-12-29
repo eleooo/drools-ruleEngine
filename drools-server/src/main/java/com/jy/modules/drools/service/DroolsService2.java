@@ -39,6 +39,12 @@ public class DroolsService2 {
 
     private static final String FILE_SUFFIX = "drools.fileSuffix";
 
+    private static final String RULES_DIR = "rules/";
+
+    private static final String RULES_SUFFIX  = ".drl";
+
+
+
     private static Logger logger = LoggerFactory.getLogger(DroolsService2.class);
 
     @Autowired
@@ -56,8 +62,18 @@ public class DroolsService2 {
     public String executeRuleFile(String ruleFileName,List<Object> inputList,Map<String, Object> globalMap) throws IllegalAccessException, InstantiationException, InterruptedException {
         //创建一个KnowledgeBuilder，保存资源文件
         KnowledgeBuilder kBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-        String targetDir = env.getProperty(TARGET_DIR);//从Zookeeper配置中心获取规则文件存放目录
-        String fileSuffix = env.getProperty(FILE_SUFFIX);//从Zookeeper配置中心获取规则文件后缀
+        String targetDir = null;//从Zookeeper配置中心获取规则文件存放目录
+        try {
+            targetDir = env.getProperty(TARGET_DIR);
+        } catch (Exception e) {
+            targetDir= RULES_DIR;
+        }
+        String fileSuffix = null;//从Zookeeper配置中心获取规则文件后缀
+        try {
+            fileSuffix = env.getProperty(FILE_SUFFIX);
+        } catch (Exception e) {
+            fileSuffix = RULES_SUFFIX;
+        }
         //添加规则资源到KnowledgeBuilder
         //解决规则文件乱码问题:设置解析编码格式
         Resource resource = ResourceFactory.newClassPathResource(targetDir + ruleFileName+ fileSuffix,"utf-8",DroolsService2.class);

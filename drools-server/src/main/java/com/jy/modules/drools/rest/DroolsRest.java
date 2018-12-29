@@ -18,22 +18,24 @@ import org.drools.examples.petstore.Order;
 import org.drools.examples.petstore.Product;
 import org.drools.examples.petstore.Purchase;
 import org.drools.examples.state.State;
-import org.kie.api.KieServices;
-import org.kie.api.event.rule.DebugAgendaEventListener;
-import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.StatelessKieSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class DroolsRest {
+
+    private static Logger logger = LoggerFactory.getLogger(DroolsService.class);
+
     @Autowired
     private DroolsService droolsService;
 
@@ -305,7 +307,7 @@ public class DroolsRest {
         String result = droolsService2.executeRuleFile("ruleRHSSyntax-rules", inputList, globalMap);
         //若result值不为空值，说明规则执行存在错误。
         long endTime = System.currentTimeMillis();
-        System.out.printf("执行耗时:" + (endTime - startTime));
+        System.out.println("执行耗时:" + (endTime - startTime));
         return result;
     }
 
@@ -325,7 +327,7 @@ public class DroolsRest {
                                   @RequestParam(value = "locationRiskProfile") String locationRiskProfile,
                                   @RequestParam(value = "type") String type
                                   )
-            throws Exception {
+           {
         long startTime = System.currentTimeMillis();
         //定义一个事实对象集合
         List<Object> factObjList = new ArrayList <Object>();
@@ -340,9 +342,11 @@ public class DroolsRest {
         policy.setDiscountPercent(0);
         factObjList.add(driver);
         factObjList.add(policy);
-        droolsService.executeStatelessKSRule("DecisionTableKS",factObjList);
-        System.out.println( "BASE PRICE IS: " + policy.getBasePrice() );
-        System.out.println( "DISCOUNT IS: " + policy.getDiscountPercent() );
+        boolean feedBack = droolsService.executeStatelessKSRule("DecisionTableKS", factObjList, null);
+        if(feedBack){
+           System.out.println( "BASE PRICE IS: " + policy.getBasePrice() );
+           System.out.println( "DISCOUNT IS: " + policy.getDiscountPercent() );
+        }
         long endTime = System.currentTimeMillis();
         System.out.printf("执行耗时:" + (endTime - startTime));
     }
@@ -366,7 +370,7 @@ public class DroolsRest {
         message.setMessage(msg);
         message.setStatus(status);
         factObjList.add(message);
-        droolsService.executeStatefulKSRule("HelloWorldKS",factObjList);
+        droolsService.executeStatelessKSRule("HelloWorldKS",factObjList,null);
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
     }
@@ -394,7 +398,7 @@ public class DroolsRest {
         factObjList.add(b);
         factObjList.add(c);
         factObjList.add(d);
-        droolsService.executeStatelessKSRule("StateSalienceKS",factObjList);
+        droolsService.executeStatelessKSRule("StateSalienceKS",factObjList,null);
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
     }
@@ -423,7 +427,7 @@ public class DroolsRest {
         factObjList.add(b);
         factObjList.add(c);
         factObjList.add(d);
-        droolsService.executeStatefulKSRule("StateAgendaGroupKS",factObjList);
+        droolsService.executeStatefulKSRule("StateAgendaGroupKS",factObjList,null);
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
     }
@@ -451,7 +455,7 @@ public class DroolsRest {
         factObjList.add(p2);
         factObjList.add(p3);
         factObjList.add(p4);
-        droolsService.executeStatelessKSRule("HonestPoliticianKS",factObjList);
+        droolsService.executeStatelessKSRule("HonestPoliticianKS",factObjList,null);
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
     }
@@ -481,7 +485,7 @@ public class DroolsRest {
         factObjList.add(cf2);
         factObjList.add(cf3);
         factObjList.add(cf4);
-        droolsService.executeStatelessKSRule("CashFlowKS",factObjList);
+        droolsService.executeStatelessKSRule("CashFlowKS",factObjList,null);
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
     }
@@ -526,8 +530,8 @@ public class DroolsRest {
         Map<String,Object> globalVariable = new HashMap<String,Object>();
         Map<String,Object> globalMap = new HashMap<String,Object>();
         globalVariable.put("globalMap",globalMap);
-        droolsService.executeStatelessKSRule("PetStoreKS",factObjList,globalVariable);
-        if(null!=globalMap && globalMap.size()>0){
+        boolean feedBack = droolsService.executeStatelessKSRule("PetStoreKS", factObjList, globalVariable);
+        if(feedBack && null!=globalMap && globalMap.size()>0){
             double discountedTotal = (double)globalMap.get("discountedTotal");
             double grossTotal = (double)globalMap.get("grossTotal");
             System.out.println("订单总价格:" + grossTotal+",订单折后价格:"+discountedTotal);
