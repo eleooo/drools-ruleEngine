@@ -1,4 +1,4 @@
-package com.jy.modules.drools.domain;
+package org.drools.domain;
 import com.jy.modules.drools.entity.DroolsResultDTO;
 global DroolsResultDTO droolsResultDTO
 declare Person

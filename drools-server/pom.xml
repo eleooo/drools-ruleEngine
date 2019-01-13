@@ -48,6 +48,17 @@
             <artifactId>drools-templates</artifactId>
             <version>${drools.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-rule</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-rule-plus</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.kie</groupId>

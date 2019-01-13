@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "1de93f41-1dec-455e-b834-1c54de14aea3",
+		"name": "DroolsRuleEngine",
+		"description": "Drools规则引擎",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "规则文件测试一：简单的规则文件",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:1002/drools-ruleEngine/testHelloWorld?msg=test&status=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1002",
+					"path": [
+						"drools-ruleEngine",
+						"testHelloWorld"
+					],
+					"query": [
+						{
+							"key": "msg",
+							"value": "test"
+						},
+						{
+							"key": "status",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试二：声明新类型",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/declareNewType"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试三：声明类型的继承",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/declareNewTypeExtends"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试四：声明元数据",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/declareTypeMetadata"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试五：查询定义",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/queryFuncRule"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试六：函数定义",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/funcRule"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试七：测试全局变量",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testGlobalProperty"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试八：测试规则属性",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testRuleProperty"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试九：测试条件语法",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testLHSSyntax"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试十：测试行为语法",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testRHSSyntax"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试十一：测试决策表(电子表格)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:1002/drools-ruleEngine/testDecisiontable?name=陈东栋&age=30&priorClaims=0&locationRiskProfile=LOW&type=COMPREHENSIVE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1002",
+					"path": [
+						"drools-ruleEngine",
+						"testDecisiontable"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "陈东栋"
+						},
+						{
+							"key": "age",
+							"value": "30"
+						},
+						{
+							"key": "priorClaims",
+							"value": "0"
+						},
+						{
+							"key": "locationRiskProfile",
+							"value": "LOW"
+						},
+						{
+							"key": "type",
+							"value": "COMPREHENSIVE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试十二： 测试使用规则组agenda-group",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testStateAgendaGroupKS",
+				"description": "agenda-group：为规则设定所属的规则组，当规则组获得焦点时，会匹配组内的规则，如果规则组没有焦点，那么组内规则将不会触发，该属性默认为MAIN。实际应用中agenda-group可以和auto-focus属性一起使用"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试十三：测试优先级salience",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testStateSalienceKS",
+				"description": "salience: 默认值为0，该属性配置规则的优先级，属性值越大，规则匹配的优先级越高，可以为负数。"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试十四：测试exists与 insertLogical的用法",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testHonestPoliticianKS",
+				"description": " exists Hope()表示只在乎是否存在而不在乎存在几个，即使存在多个RHS只生效一次。对Hope()，存在几个RHS就会执行几次；\r\n insertLogical当没有更多的fact支持当前激发规则的真值状态时，对象自动删除"
+			},
+			"response": []
+		},
+		{
+			"name": "规则文件测试十五：宠物商城购物打折规则",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://localhost:1002/drools-ruleEngine/testPetStore",
+				"description": "新增宠物商城购物打折规则(涉及不同事实对象逻辑比较，以及全局变量设置"
+			},
+			"response": []
+		}
+	]
+}
