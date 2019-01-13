@@ -3,9 +3,9 @@
   drools-rule-plus.7.7.0.Final.jar
 2.Maven 将以上jar包添加到本地仓库
 
-mvn install:install-file -Dfile=D:\drools-rule-7.7.0.Final.jar -DgroupId=org.drools -DartifactId=drools-rule -Dversion=7.7.0.Final -Dpackaging=jar
+mvn install:install-file -Dfile=C:\drools-rule-7.7.0.Final.jar -DgroupId=org.drools -DartifactId=drools-rule -Dversion=7.7.0.Final -Dpackaging=jar
 
-mvn install:install-file -Dfile=D:\drools-rule-plus-7.7.0.Final.jar -DgroupId=org.drools -DartifactId=drools-rule-plus -Dversion=7.7.0.Final -Dpackaging=jar
+mvn install:install-file -Dfile=C:\drools-rule-plus-7.7.0.Final.jar -DgroupId=org.drools -DartifactId=drools-rule-plus -Dversion=7.7.0.Final -Dpackaging=jar
 
 3. 添加如下pom.xmL文件依赖:
 <dependency>

@@ -1,0 +1,7 @@
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.drools.org/xsd/kmodule">
+    <kbase name="RuleKB" default="true" eventProcessingMode="stream" equalsBehavior="identity" declarativeAgenda="disabled" scope="javax.enterprise.context.ApplicationScoped" packages="com.jy.modules.antifraud.rule">
+        <ksession name="RuleA001KS" type="stateless" default="true" clockType="realtime" beliefSystem="simple"/>
+        <ksession name="RuleA002KS" type="stateless" default="true" clockType="realtime" beliefSystem="simple"/>
+    </kbase>
+</kmodule>
