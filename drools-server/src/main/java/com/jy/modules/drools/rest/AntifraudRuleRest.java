@@ -80,7 +80,7 @@ public class AntifraudRuleRest {
             Applicant history = new Applicant();
             history.setCustName("张三"+i);
             history.setBirthDate(birthdate);
-            history.setCardId("11010119900307"+i);
+            history.setCardId("110101199003070"+i);
             list.add(history);
         }
         factObjList.add(list);

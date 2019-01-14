@@ -3,14 +3,9 @@ package com.jy.modules.drools.rest;
 import com.jy.modules.drools.domain.*;
 import com.jy.modules.drools.entity.DroolsResultDTO;
 import com.jy.modules.drools.service.DroolsService;
-import com.sample.driver_license.Application;
 import com.jy.modules.drools.service.DroolsService2;
 import com.jy.modules.drools.util.FunctionUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.kie.api.KieServices;
-import org.kie.api.builder.ReleaseId;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
 import org.drools.examples.cashflow.Account;
 import org.drools.examples.cashflow.AccountPeriod;
 import org.drools.examples.cashflow.CashFlow;
@@ -543,37 +538,5 @@ public class DroolsRest {
         }
         long endTime = System.currentTimeMillis();
         System.out.println("执行耗时:" + (endTime - startTime));
-    }
-    /**
-     * @methodName: testRHSSyntax
-     * @param: []
-     * @describe: 测试规则-满18周岁才可以开车
-     * @auther: dongdongchen
-     * @date: 2018/12/14
-     * @time: 14:39
-     **/
-    @RequestMapping("/testLicenseRule")
-    public String  testLicenseRule(@RequestParam(value = "name") String name,
-                                   @RequestParam(value = "age") Integer age){
-       String result =" ";
-       // 读取jar包信息，并用Kcontainer封装，并创建KieSession
-       KieServices ks = KieServices.Factory.get();
-       ReleaseId releaseId = ks.newReleaseId( "com.sample", "driver-license", "1.0.0" );
-       KieContainer kContainer = ks.newKieContainer(releaseId);
-       KieSession kSession = kContainer.newKieSession();
-       //初始化Applicant对象，进行规则匹配，判断是否可以申请驾照
-       Application driver = new Application();
-       driver.setName(name);
-       driver.setAge(age);
-       kSession.insert(driver);
-       kSession.fireAllRules();
-       if (null!=driver.getValid()&&driver.getValid()) {
-            System.out.println("Can Drive");
-            result ="Can Drive";
-       } else {
-            System.out.println("Can't Drive");
-            result ="Can't Drive";
-       }
-        return result;
     }
 }
