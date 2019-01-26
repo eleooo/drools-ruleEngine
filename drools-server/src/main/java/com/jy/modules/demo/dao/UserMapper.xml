@@ -14,4 +14,14 @@
         from user
         where id = #{id}
     </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.jy.modules.demo.dto.UserDTO">
+       insert into user (cust_name) values (#{dto.custName,jdbcType=VARCHAR})
+    </insert>
+
+   <update id="updateUserByPrimaryKey" parameterType="com.jy.modules.demo.dto.UserDTO">
+        update user
+           set cust_name = #{dto.custName,jdbcType=VARCHAR}
+        where id = #{dto.id,jdbcType=BIGINT}
+    </update>
 </mapper>

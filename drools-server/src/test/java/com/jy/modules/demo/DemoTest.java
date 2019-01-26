@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.HashMap;
+import java.util.Map;
 
 //https://blog.csdn.net/thomaslove/article/details/80281720
 //https://blog.csdn.net/xinanrusu/article/details/52846243
@@ -37,4 +41,21 @@ public class DemoTest {
         logger.info("查询用户信息：{}",userDTO);
     }
 
+    @Test
+    //默认单元测试更新操作默认会回滚，如果你想看到实际数据库表中数据 则添加
+    @Rollback(false)
+    public  void testInsertUser(){
+        Map<String,Object>  paramsMap = new HashMap<>();
+        paramsMap.put("dto",new UserDTO("李四"));
+        userDao.insertUser(paramsMap);
+    }
+
+    @Test
+    //默认单元测试更新操作默认会回滚，如果你想看到实际数据库表中数据 则添加
+    @Rollback(false)
+    public  void testUpdateUser(){
+        Map<String,Object>  paramsMap = new HashMap<>();
+        paramsMap.put("dto",new UserDTO(1L,"张三"));
+        userDao.updateUserByPrimaryKey(paramsMap);
+    }
 }

@@ -28,6 +28,12 @@ public class UserDTO implements Serializable{
     public UserDTO() {
     }
 
+    public UserDTO(String custName) {
+        this.custName = custName;
+    }
+
+
+
     @Override
     public String toString() {
         return "UserDTO{" +

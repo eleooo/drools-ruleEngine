@@ -4,10 +4,16 @@ import com.jy.modules.demo.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Map;
+
 
 @Mapper
 public interface UserDAO {
 
     //@Select("select id as id, cust_name as custName from user where id = #{id}")
     public UserDTO selectNameById(Long id);
+
+    public Long insertUser(Map<String,Object> paramsMap);
+
+    public Long updateUserByPrimaryKey(Map<String,Object> paramsMap);
 }
