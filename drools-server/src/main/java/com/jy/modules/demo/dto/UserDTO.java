@@ -27,4 +27,12 @@ public class UserDTO implements Serializable{
 
     public UserDTO() {
     }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", custName='" + custName + '\'' +
+                '}';
+    }
 }
