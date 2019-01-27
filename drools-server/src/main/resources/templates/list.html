@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title></title>
+
+</head>
+
+<body>
+
+	<table style="text-align: center;" border="1">
+		<tr>
+			<th>名称</th>
+			<th>密码</th>
+		</tr>
+		<tr th:each="user : ${users}">
+			<td th:text="${user.userName}"></td>
+			<td th:text="${user.password}"></td>
+		</tr>
+	</table>
+	
+</body>
+</html>
