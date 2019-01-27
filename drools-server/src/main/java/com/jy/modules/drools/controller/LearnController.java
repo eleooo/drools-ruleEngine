@@ -1,8 +1,11 @@
 package com.jy.modules.drools.controller;
 
 import com.jy.modules.drools.domain.LearnResource;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -21,12 +24,9 @@ import java.util.List;
 @RequestMapping(value = "/learn")
 public class LearnController {
 
-    @RequestMapping("")
-    public String learn() {
-        return "backmanage/learn-resource";
-    }
 
-    @RequestMapping("/index")
+    @ApiOperation(value="测试SpringBoot整合jsp", notes="测试SpringBoot整合jsp")
+    @RequestMapping(value = "/index",method= RequestMethod.GET)
     public ModelAndView index() {
 
         List <LearnResource> learnResourceList = new ArrayList <>();

@@ -18,8 +18,10 @@
     <properties>
         <java.version>1.8</java.version>
         <drools.version>7.7.0.Final</drools.version>
+        <!--SpringBoot整合thymeleaf，若整合jsp需要移除-->
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
+
         <lombok.version>1.18.0</lombok.version>
     </properties>
 
@@ -84,10 +86,11 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-      <!--  <dependency>
+        <!--SpringBoot整合thymeleaf，若整合jsp需要移除-->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!--ZooKeeper提供了一个分层命名空间，允许客户端存储任意数据，如配置数据。而要实现这一功能，pom.xml中必须加入如下信息。-->
         <dependency>
