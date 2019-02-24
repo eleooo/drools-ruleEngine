@@ -5,6 +5,7 @@ package com.jy.modules.demo.rest;
  */
 
 import com.jy.modules.demo.dto.Book;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,8 +23,9 @@ import java.util.*;
  * Created by fangzhipeng on 2017/4/17.
  * 官方文档：http://swagger.io/docs/specification/api-host-and-base-path/
  */
+@Api(tags = {"图书管理"}, description = "图书管理")
 @RestController
-@RequestMapping(value = "/books")
+@RequestMapping(value = "/api/books")
 public class BookRest {
 
     Map<Long, Book> books = Collections.synchronizedMap(new HashMap<Long, Book>());

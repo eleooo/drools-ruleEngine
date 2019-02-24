@@ -3,6 +3,7 @@ package com.jy.modules.demo.rest;
 import com.alibaba.fastjson.JSONObject;
 import com.jy.modules.demo.dto.UserDTO;
 import com.jy.modules.demo.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by apple on 2019/1/16.
  */
+@Api(tags = {"用户管理"}, description = "用户管理")
 @RestController
+@RequestMapping(value = "/api/user")
 public class UserRest {
 
     @Autowired
