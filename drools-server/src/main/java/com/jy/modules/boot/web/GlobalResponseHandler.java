@@ -1,14 +1,18 @@
 package com.jy.modules.boot.web;
 
+import com.google.common.base.Throwables;
+import com.jy.modules.boot.exception.DroolsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
@@ -20,6 +24,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  */
 @ControllerAdvice(annotations = {RestController.class, Controller.class})
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
+
+    private static Logger logger = LoggerFactory.getLogger(GlobalResponseHandler.class);
+
+
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         final String returnTypeName = returnType.getParameterType().getName();
@@ -43,4 +51,22 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
         }
         return GlobalResponse.success(body);
     }
+
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler({DroolsException.class})
+    public <T> GlobalResponse<T> handleException(DroolsException e) {
+        logger.error(Throwables.getStackTraceAsString(e));
+        return GlobalResponse.fail(e.getMessage(), e.getErrorCode());
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler({Throwable.class})
+    public <T> GlobalResponse<T> handleException(Throwable e) {
+        logger.error(Throwables.getStackTraceAsString(e));
+        return GlobalResponse.fail(Throwables.getStackTraceAsString(e), null);
+    }
+
 }
