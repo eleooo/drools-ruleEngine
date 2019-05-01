@@ -1,4 +1,4 @@
-# drools-ruleEngine
+#drools-ruleEngine
 drools规则引擎
 #swagger-ui访问路径:
 http://localhost:1002/drools-ruleEngine/swagger-ui.html#/
@@ -18,3 +18,7 @@ pom.xml去除中spring-boot-starter-thymeleaf以及thymeleaf.version相关配置
   ③负载均衡测试: 输出默认配置
     http://localhost:9000/ribbon-invoker/api/loadBalanced/defaultValue
 
+#微服务启动指令：运行一次maven install，然后使用java -jar并指定target目录下生成的jar文件来运行这个应用程序
+  java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\drools-server\target\drools-server-0.0.1-SNAPSHOT.jar --server.port=1001
+  java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\drools-server\target\drools-server-0.0.1-SNAPSHOT.jar --server.port=1002
+  java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\ribbon-invoker\target\ribbon-invoker-0.0.1-SNAPSHOT.jar --server.port=9000
