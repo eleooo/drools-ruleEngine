@@ -7,6 +7,8 @@ import com.jy.modules.demo.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,12 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/user")
 public class UserRest {
 
+    private static Logger logger = LoggerFactory.getLogger(UserRest.class);
+
     @Autowired
     private UserService userService;
 
     @ApiOperation(value = "测试主页面", notes = "测试主页面")
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String index() {
+        logger.info("进入测试主页面");
         return "Hello World";
     }
 

@@ -20,6 +20,7 @@
     <modules>
         <module>eureka-server</module>
         <module>drools-server</module>
+        <module>ribbon-invoker</module>
     </modules>
 
     <properties>
