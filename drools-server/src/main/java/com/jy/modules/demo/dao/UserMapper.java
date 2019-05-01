@@ -8,12 +8,12 @@ import java.util.Map;
 
 
 @Mapper
-public interface UserDAO {
+public interface UserMapper {
 
     //@Select("select id as id, cust_name as custName from user where id = #{id}")
-    public UserDTO selectNameById(Long id);
+    UserDTO selectNameById(Long id);
 
-    public Long insertUser(Map<String,Object> paramsMap);
+    Long insertUser(Map<String,Object> paramsMap);
 
-    public Long updateUserByPrimaryKey(Map<String,Object> paramsMap);
+    Long updateUserByPrimaryKey(Map<String,Object> paramsMap);
 }

@@ -5,11 +5,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Applications.class)// // 指定spring-boot的启动类
+@EnableEurekaClient
+@EnableDiscoveryClient
+@MapperScan(value = {"com.jy.modules.*.dao"})
+@ComponentScan(basePackages = {"com.jy.modules"})
 public class DroolsServerApplicationTests {
 
     @Before
