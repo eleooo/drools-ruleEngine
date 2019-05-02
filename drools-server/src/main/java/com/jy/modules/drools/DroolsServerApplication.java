@@ -7,11 +7,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableDiscoveryClient
+@EnableFeignClients(basePackages = "com.jy.modules.boot.feign")
 @MapperScan(value = {"com.jy.modules.*.dao"})
 @ComponentScan(basePackages = {"com.jy.modules"})
 public class DroolsServerApplication extends SpringBootServletInitializer {
