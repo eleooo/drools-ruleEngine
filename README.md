@@ -32,8 +32,9 @@
     服务提供者(feign-provider)
     服务调用者(drools-server)的pom.xml文件中添加以下依赖：
     <dependency>
-         <groupId>org.springframework.cloud</groupId>
-         <artifactId>spring-cloud-starter-feign</artifactId>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-openfeign-core</artifactId>
+        <version>2.0.0.RELEASE</version>
     </dependency>
     在服务调用者的启动类中，打开Feign开关：
     com.jy.modules.drools.DroolsServerApplication
