@@ -27,6 +27,8 @@
    Feign是GitHub上的一个开源项目，目的是简化 Web Service客户端的开发 。在使用Feign时，可以使用注解来修饰接口，被注解修饰的接口具有访问WebService的能力。
    这些注解中既包括Feign自带的注解，也支持使用第三方的注解 。除此之外， Feign还支持插件式的编码器和解码器，使用者可以通过该特性对请求和响应进行不同的封装与解析。
    Feign使用的是JDK的动态代理，生成的代理类会将请求的信息封装，交给feign.Client接口发送请求，而该接口的默认实现类最终会使用java.net.HttpURLConnection 来发送HTTP请求。
+   Feign 框架被集成到 Spring Cloud 的 Netflix 项目中，主要作为REST客户端。
+   该框架的主要优点在于，它的插件式机制可以灵活地被整合到项目中 。Feign自带Ribbon模块，本身就具有负载均衡的能力，可以访问集群的服务。
 
  >> 在Spring Cloud中整合Feign
     服务提供者(feign-provider)
@@ -52,6 +54,7 @@
 
    >> 服务启动顺序
     启动Eureka服务器(eureka-server)
+    java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\eureka-server\target\eureka-server-0.0.1-SNAPSHOT.jar --server.port=1000
     启动两个服务提供者(feign-provider)
     java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\feign-provider\target\feign-provider-0.0.1-SNAPSHOT.jar --server.port=1003
     java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\feign-provider\target\feign-provider-0.0.1-SNAPSHOT.jar --server.port=1004
