@@ -52,7 +52,7 @@
     #请求连接的超时时间
     ribbon.ConnectTimeout=60000
 
-   >> 服务启动顺序
+  >> 服务启动顺序
     启动Eureka服务器(eureka-server)
     java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\eureka-server\target\eureka-server-0.0.1-SNAPSHOT.jar --server.port=1000
     启动两个服务提供者(feign-provider)
@@ -60,3 +60,18 @@
     java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\feign-provider\target\feign-provider-0.0.1-SNAPSHOT.jar --server.port=1004
     启动一个服务调用者
     java -jar C:\Users\apple\IdeaProjects\drools-ruleEngine\drools-server\target\drools-server-0.0.1-SNAPSHOT.jar --server.port=1002
+
+ >> Spring Cloud的保护机制-集群容错框架(Hystrix)
+
+    针对复杂的集群，加强了对服务节点的控制,加入了故障报告、紧急故障处理等机制，非常重要。
+    在分布式环境中，总会有一些被依赖的服务会失效，例如像网络短暂无法访问、服务器宕机等情况。
+    Hystrix是Netflix下的一个Java库,Spring Cloud将Hystrix整合到Netflix项目中，Hystrix通过添加延迟阀值以及容错的逻辑，来帮助我们控制分布式系统间组件的交互。
+    Hystrix通过隔离服务间的访问点、停止它们之间的级联故障、提供可回退操作来实现。
+    ======================应用程序正常调用关系为===================================
+           用户访问→服务A→基础服务→数据库
+    ===========================================================================
+    @@ 当基础服务(数据库)不可用时，服务器A将对其进行"熔断",在一定的时间内，服务A都不会再调用基础服务，以维持本身的稳定。
+    ======================应用程序正常调用关系演变为===============================
+           用户访问→服务A→X→数据库
+           用户访问→服务A→回退→回退逻辑
+    ===========================================================================
