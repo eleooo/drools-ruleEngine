@@ -1,7 +1,10 @@
 package com.jy.modules.thymeleaf.dto;
 
-public class User {
+import java.io.Serializable;
 
+public class User implements Serializable{
+
+	private static final long serialVersionUID = -7803592448450756480L;
 	private String userName;
 	
 	private String password;

@@ -75,3 +75,29 @@
            用户访问→服务A→X→数据库
            用户访问→服务A→回退→回退逻辑
     ===========================================================================
+
+    在Spring Cloud中整合Hystrix
+
+    1.服务提供者(feign-provider)
+    2.服务调用者(hystrix-invoker)的pom.xml文件中添加以下依赖：
+     <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+     </dependency>
+
+     <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+     </dependency>
+
+     3.在服务调用者的应用启动类HystrixInvokerApplication中，加入启用断路器的注解@EnableCircuitBreaker.
+     4.在服务类PersonService服务方法使用＠HystrixCommand注解进行修饰，并且配置了回退方法 。
+       被＠HystrixCommand 修饰的方法， Hystrix(javanica）会使用 AspectJ 对其进行代理，
+     5.服务启动顺序
+       ①启动Eureka服务器(eureka-server)
+       ②启动服务提供者(feign-provider)
+       ③启动服务调用者(hystrix-invoker)
+       在浏览器输入http://localhost:9001/router/1，输出如下：
+       {"id":1,"name":"Crazyit","age":30,"message":"http://DESKTOP-SG1V52N:1003/person/1"}
+       停止服务提供者(feign-provider)，再次访问，输出如下：
+       {"id":0,"name":"Crazyit","age":-1,"message":"request error"}

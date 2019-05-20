@@ -6,11 +6,11 @@ import java.util.Date;
  * Created by apple on 2019/1/13.
  */
 public class Applicant {
-    private String  custName;
+    private String custName;
 
-    private String  cardId;
+    private String cardId;
 
-    private Date  birthDate;
+    private Date birthDate;
 
     public String getCustName() {
         return custName;
@@ -29,10 +29,12 @@ public class Applicant {
     }
 
     public Date getBirthDate() {
-        return birthDate;
+        return (Date) birthDate.clone();
     }
 
     public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+        if (birthDate != null) {
+            this.birthDate = (Date) birthDate.clone();
+        }
     }
 }

@@ -1,9 +1,12 @@
 package com.jy.modules.boot.exception;
 
+import java.io.Serializable;
+
 /**
  * Created by apple on 2019/4/30.
  */
-public class DroolsException extends RuntimeException {
+public class DroolsException extends RuntimeException implements Serializable {
+    private static final long serialVersionUID = 5449355956170645749L;
     /**
      * 错误编码
      */
@@ -43,13 +46,5 @@ public class DroolsException extends RuntimeException {
     public DroolsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Integer errorCode) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.errorCode = errorCode;
-    }
-
-    @Override
-    public String toString() {
-        return "DroolsException{" +
-                "errorCode=" + errorCode +
-                ", errorMsg='" + errorMsg + '\'' +
-                '}';
     }
 }

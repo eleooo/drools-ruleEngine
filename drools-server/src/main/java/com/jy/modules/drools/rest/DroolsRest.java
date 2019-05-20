@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.drools.examples.cashflow.Account;
-import org.drools.examples.cashflow.AccountPeriod;
 import org.drools.examples.cashflow.CashFlow;
 import org.drools.examples.cashflow.CashFlowType;
 import org.drools.examples.decisiontable.Driver;
@@ -276,8 +275,6 @@ public class DroolsRest {
         SyntaxPerson1 p8 = new SyntaxPerson1("person 8", 20, "f");
         // 字符串包含
         SyntaxPerson1 p9 = new SyntaxPerson1("person 9", 60, "g");
-        // 判定集合元素值
-        SyntaxPerson1 p10 = new SyntaxPerson1("person 10", 25, "Paris");
         inputList.add(p2);
         inputList.add(p3);
         inputList.add(p4);
@@ -500,7 +497,6 @@ public class DroolsRest {
         long startTime = System.currentTimeMillis();
         //定义一个事实对象集合
         List<Object> factObjList = new ArrayList<Object>();
-        AccountPeriod acp = new AccountPeriod(FunctionUtil.date("2013-01-01"), FunctionUtil.date("2013-03-31"));
         Account ac = new Account(1, 0);
         CashFlow cf1 = new CashFlow(FunctionUtil.date("2013-01-12"), 100, CashFlowType.CREDIT, 1);
         CashFlow cf2 = new CashFlow(FunctionUtil.date("2013-02-2"), 200, CashFlowType.DEBIT, 1);
