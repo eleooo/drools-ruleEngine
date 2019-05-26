@@ -1,12 +1,13 @@
 package com.jy.modules.boot.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * <br> 创建线程池配置类
  * <br> @ConfigurationProperties(prefix = “spring.task.pool”)是让spring在创建bean时去加载配置文件中开头为spring.task.pool的内容。
  */
+@Component
 @ConfigurationProperties(prefix = "spring.task.pool")
 public class ThreadPoolConfig {
 

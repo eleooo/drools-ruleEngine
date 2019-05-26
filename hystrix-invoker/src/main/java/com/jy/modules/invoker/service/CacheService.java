@@ -2,7 +2,6 @@ package com.jy.modules.invoker.service;
 
 import com.jy.modules.invoker.entity.Person;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheKey;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheRemove;
 import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 import org.slf4j.Logger;
@@ -46,9 +45,9 @@ public class CacheService {
      * @param sysName 系统名称
      * @return
      */
-    @CacheResult()
+    @CacheResult
     @HystrixCommand(commandKey = "removeKey")
-    public String cacheMethod(@CacheKey String sysCode, String sysName) {
+    public String cacheMethod(String sysCode, String sysName) {
         logger.info("执行命令,sysCode:{},sysName:{}", sysCode, sysName);
         return "hello";
     }
@@ -62,7 +61,7 @@ public class CacheService {
      */
     @CacheRemove(commandKey = "removeKey")
     @HystrixCommand
-    public void updateMethod(@CacheKey String sysCode, String sysName) {
+    public void updateMethod(String sysCode, String sysName) {
         logger.info("缓存已被删除,sysCode:{},sysName:{}", sysCode, sysName);
     }
 }

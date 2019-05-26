@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServl
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -23,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableFeignClients(basePackages = {"com.jy.modules.boot.feign"})
 //开启Hystrix控制台
 @EnableHystrixDashboard
+@ServletComponentScan
 @ComponentScan(basePackages = {"com.jy.modules"})
 public class HystrixInvokerApplication extends SpringBootServletInitializer {
 
@@ -36,7 +38,7 @@ public class HystrixInvokerApplication extends SpringBootServletInitializer {
      * spring cloud2 hystrix没有/actuator/hystrix.stream路径解决
      **/
     @Bean
-    public ServletRegistrationBean getServlet(){
+    public ServletRegistrationBean getServlet() {
 
         HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
 

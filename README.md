@@ -102,6 +102,9 @@
        停止服务提供者(feign-provider)，再次访问，输出如下：
        {"id":0,"name":"Crazyit","age":-1,"message":"request error"}
 
+     > springboot之Filter指定过滤URL的常见问题
+        https://blog.csdn.net/east123321/article/details/79694974
+
      > Hystrix监控台地址:
        http://localhost:9001/hystrix
        以下命令主要用于测试Feign的断路器，判断断路器开启状态(CircuitStatus-open开启;closed-关闭)
