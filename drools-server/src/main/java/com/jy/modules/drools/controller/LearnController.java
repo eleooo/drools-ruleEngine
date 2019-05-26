@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @className: LearnController
- * @package: com.jy.modules.drools.controller
+ * @package: com.jy.modules.drools.rest
  * @describe: 测试springboot开发Web应用JSP
  * @auther: dongdongchen
  * @date: 2018/12/20

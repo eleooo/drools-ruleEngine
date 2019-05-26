@@ -21,6 +21,7 @@ public class MyConfig {
     @Bean
     public RequestInterceptor getRequestInterceptorsA() {
         return new RequestInterceptor() {
+            @Override
             public void apply(RequestTemplate template) {
                 System.out.println("这是第一个请求拦截器");
             }
@@ -30,6 +31,7 @@ public class MyConfig {
     @Bean
     public RequestInterceptor getRequestInterceptorsB() {
         return new RequestInterceptor() {
+            @Override
             public void apply(RequestTemplate template) {
                 System.out.println("这是第二个请求拦截器");
             }

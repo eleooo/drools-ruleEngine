@@ -12,6 +12,7 @@ import org.springframework.http.client.ClientHttpResponse;
  */
 public class MyInterceptor implements ClientHttpRequestInterceptor {
 
+	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body,
 			ClientHttpRequestExecution execution) throws IOException {
 		System.out.println("=============  这是自定义拦截器实现");

@@ -1,11 +1,10 @@
 package com.jy.modules.drools.entity;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 
 public class DroolsResultDTO implements Serializable {
 
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = -575105089570345990L;
     /*** 返回标识   true 成功 ；空值为 失败*/
     private boolean retStatus;
     /*** 规则得分*/

@@ -23,7 +23,7 @@ public class MyAutoConfiguration {
 	public SmartInitializingSingleton myLoadBalancedRestTemplateInitializer() {
 		System.out.println("====  这个Bean将在容器初始化时创建    =====");
 		return new SmartInitializingSingleton() {
-			
+			@Override
 			public void afterSingletonsInstantiated() {
 				for(RestTemplate tpl : myTemplates) {
 					// 创建一个自定义的拦截器实例

@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by apple on 2019/5/19.
  */
 public class CustomThreadFactory implements ThreadFactory {
-    private static final AtomicInteger poolNumber = new AtomicInteger(1);
+    private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
     private final ThreadGroup group;
     private final AtomicInteger threadNumber = new AtomicInteger(1);
     private final String namePrefix;
@@ -19,7 +19,7 @@ public class CustomThreadFactory implements ThreadFactory {
         if (null == name || name.isEmpty()) {
             name = "pool";
         }
-        Integer increment = poolNumber.getAndIncrement();
+        Integer increment = POOL_NUMBER.getAndIncrement();
         namePrefix = String.join("-", name, increment.toString(), "thread");
     }
 

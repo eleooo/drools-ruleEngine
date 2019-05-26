@@ -18,6 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"com.jy.modules"})
 public class DroolsServerApplication extends SpringBootServletInitializer {
 
+    @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application)   {
         return application.sources(DroolsServerApplication.class);
     }

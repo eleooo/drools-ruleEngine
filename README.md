@@ -101,3 +101,16 @@
        {"id":1,"name":"Crazyit","age":30,"message":"http://DESKTOP-SG1V52N:1003/person/1"}
        停止服务提供者(feign-provider)，再次访问，输出如下：
        {"id":0,"name":"Crazyit","age":-1,"message":"request error"}
+
+     > Hystrix监控台地址:
+       http://localhost:9001/hystrix
+       以下命令主要用于测试Feign的断路器，判断断路器开启状态(CircuitStatus-open开启;closed-关闭)
+       http://localhost:9001/actuator/hystrix.stream
+     > Hystrix熔断处理Swagger文档地址:
+        http://localhost:9001/swagger-ui.html#/
+
+  >> 代码检查
+     1.使用阿里代码规范插件
+       https://blog.csdn.net/weixin_39220472/article/details/80077803[IDEA安装阿里代码规范插件]
+     2.使用FindBugs插件
+       https://blog.csdn.net/wangwang00001/article/details/80966341[IDEA安装findbugs插件]

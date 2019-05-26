@@ -17,6 +17,7 @@ public class MyContract extends SpringMvcContract {
     /**
      * 用于处理方法级的注解
      */
+    @Override
     protected void processAnnotationOnMethod(MethodMetadata data,
                                              Annotation annotation, Method method) {
         // 调用父类的方法时,让其支持@RequestMapping注解
